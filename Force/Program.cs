@@ -24,12 +24,29 @@ Duis autem vel eum iriure dolor in";
 
     static void Main(string[] args)
     {
+        var f = new AdaptiveHuffmanTree();
+
+        for (int i = 0; i < 5; i++)
+            f.Insert((int)input[i]);
+
+        f.PrintTreeStylized();
+
+        Console.ReadKey();
+        return;
+
         var x = CompressionCodec.LZ77;
 
         using var inputPlainStream = new MemoryStream(Encoding.UTF8.GetBytes(input));
         using var outputEncodedStream = new MemoryStream();
 
+        Console.WriteLine(input);
         x.Compress(inputPlainStream, outputEncodedStream);
+
+        outputEncodedStream.Position = 0;
+        using var encodedReader = new StreamReader(outputEncodedStream, Encoding.UTF8);
+        string encoded = encodedReader.ReadToEnd();
+        
+        Console.WriteLine(encoded);
 
         outputEncodedStream.Position = 0;
 
@@ -42,6 +59,9 @@ Duis autem vel eum iriure dolor in";
         using var reader = new StreamReader(outputPlainStream, Encoding.UTF8);
         string output = reader.ReadToEnd();
 
+        Console.WriteLine(output);
+
+        Console.WriteLine($"coded {input.Length} to {encoded.Length} to {output.Length}");
         if (TinyCRC.Compute(input) == TinyCRC.Compute(output))
         {
             Console.WriteLine("success");

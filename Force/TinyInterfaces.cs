@@ -38,3 +38,22 @@ public interface IEntropyDecoder
 {
     IEnumerable<LzToken> DecodeTokens(BitReader reader);
 }
+
+
+public interface IHuffmanNode
+{
+    public int Weight { get; }
+    public int? Symbol { get; } 
+
+    public Node? Parent { get; }
+    public Node? Left { get; }
+    public Node? Right { get; }
+
+    public bool IsLeaf { get; }
+}
+public interface IHuffmanTree
+{
+    void UpdateFrequency(int symbol);
+    void Rebalance(); // optional
+    string GetCode(int symbol);
+}

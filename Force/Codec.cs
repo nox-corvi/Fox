@@ -42,5 +42,5 @@ public sealed class CompressionCodec
     }
 
     public static CompressionCodec LZ77 = new(
-        new DummyLzEncoder(), new DummyLzDecoder(), new DummyEntropyEncoder(), new DummyEntropyDecoder());
+        new Lz77Encoder(), new Lz77Decoder(), null, null); //new AdaptiveHuffmanEncoder(), new AdaptiveHuffmanDecoder());
 }
